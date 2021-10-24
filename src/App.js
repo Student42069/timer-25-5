@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import React from "react";
-import Settings from "./Settings";
-import Controls from "./Controls";
-import Timer from "./Timer";
+import Settings from "./settings";
+import Controls from "./controls";
+import Timer from "./timer";
 
 function App() {
   const [breakl, setBreakl] = useState(5);
