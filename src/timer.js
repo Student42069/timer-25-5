@@ -1,6 +1,6 @@
 export default function Timer({ timer }) {
   return (
-    <div className="self-center text-center rounded-xl border-2 w-max border-red-500 p-6 px-11">
+    <div className="self-center text-center rounded-xl border-8 w-max border-red-500 p-8 pt-6 px-16">
       <p id="timer-label" className="text-2xl">
         Session
       </p>
