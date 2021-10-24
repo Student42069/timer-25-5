@@ -1,4 +1,11 @@
-function Settings({ breakl, setSession, setBreakl, session }) {
+function Settings({
+  breakl,
+  setSession,
+  setBreakl,
+  session,
+  playing,
+  setTimer,
+}) {
   return (
     <div className="flex w-auto justify-around" id="setting">
       <div className="mr-9">
@@ -7,7 +14,8 @@ function Settings({ breakl, setSession, setBreakl, session }) {
         </p>
         <div className="flex justify-around">
           <button
-            className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-0 pb-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+            disabled={playing}
+            className=" bg-blue-500 hover:bg-blue-400 text-white font-bold py-0 pb-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
             onClick={() => {
               if (breakl < 60) {
                 setBreakl(breakl + 1);
@@ -21,7 +29,8 @@ function Settings({ breakl, setSession, setBreakl, session }) {
             {breakl}
           </p>
           <button
-            className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-0 pb-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+            disabled={playing}
+            className=" bg-blue-500 hover:bg-blue-400 text-white font-bold py-0 pb-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
             id="break-decrement"
             onClick={() => {
               if (breakl > 1) {
@@ -39,11 +48,13 @@ function Settings({ breakl, setSession, setBreakl, session }) {
         </p>
         <div className="flex justify-around">
           <button
-            className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-0 pb-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+            disabled={playing}
+            className=" bg-blue-500 hover:bg-blue-400 text-white font-bold py-0 pb-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
             id="session-increment"
             onClick={() => {
               if (session < 60) {
                 setSession(session + 1);
+                setTimer((session + 1) * 60);
               }
             }}
           >
@@ -53,11 +64,13 @@ function Settings({ breakl, setSession, setBreakl, session }) {
             {session}
           </p>
           <button
-            className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-0 pb-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+            disabled={playing}
+            className=" bg-blue-500 hover:bg-blue-400 text-white font-bold py-0 pb-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
             id="session-decrement"
             onClick={() => {
               if (session > 1) {
                 setSession(session - 1);
+                setTimer((session - 1) * 60);
               }
             }}
           >
