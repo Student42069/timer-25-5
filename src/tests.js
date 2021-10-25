@@ -40,3 +40,21 @@
 //     console.log(now - start);
 //   }, 1000);
 // }
+
+////////////////////////////////////////////
+// const [date, setDate] = useState(0);
+
+// let ab;
+
+// const bim = () => {
+//   let now = new Date().getTime();
+//   ab = setInterval(() => {
+//     setDate(new Date().getTime() - now);
+//     console.log(new Date().getTime() - now);
+//   }, 1000);
+// };
+
+// useEffect(() => {
+//   bim();
+// }, []);
+/////////////////////////////////////////////

@@ -15,7 +15,7 @@ function Settings({
         <div className="flex justify-around">
           <button
             disabled={playing}
-            className=" bg-blue-500 hover:bg-blue-400 text-white font-bold py-0 pb-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+            className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-0 pb-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
             onClick={() => {
               if (breakl < 60) {
                 setBreakl(breakl + 1);

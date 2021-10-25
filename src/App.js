@@ -3,6 +3,7 @@ import React from "react";
 import Settings from "./settings";
 import Controls from "./controls";
 import Timer from "./timer";
+import samsung from "./samsung.mp3";
 
 function App() {
   const [breakl, setBreakl] = useState(5);
@@ -10,7 +11,10 @@ function App() {
   const [timer, setTimer] = useState(25 * 60);
   const [playing, setPlaying] = useState(false);
   const [type, setType] = useState("Session");
-  const [interval, setInterval] = useState(1);
+  const [id, setId] = useState(1);
+  // const [interval, setInterval] = useState(1); ayayayayayayayayay
+
+  let lol = new Audio(samsung);
 
   function reset() {
     setBreakl(5);
@@ -19,10 +23,15 @@ function App() {
     setType("Session");
     setInterval(1);
     setPlaying(false);
+    setId(1);
+    lol.pause();
+    lol.currentTime = 0;
   }
 
   function playpause() {
-    setPlaying(!playing);
+    if (id !== 4) {
+      setPlaying(!playing);
+    }
   }
 
   let [h, m] = [
@@ -33,33 +42,55 @@ function App() {
     }),
   ];
 
-  let props = { breakl, setSession, setBreakl, session, playing, setTimer };
-
-  ////////////////////////////////////////////
-  const [date, setDate] = useState(new Date().toLocaleString());
-
-  let ab;
-
-  const bim = () => {
-    ab = setInterval(() => {
-      setDate(new Date().toLocaleString());
-      console.log(new Date().toLocaleString());
+  const countDown = () => {
+    let ab = setInterval(() => {
+      setTimer((prev) => prev - 1);
     }, 1000);
+    return ab;
   };
 
   useEffect(() => {
-    bim();
-  });
-  /////////////////////////////////////////////
+    if (playing) {
+      let mk = countDown();
+      return () => {
+        clearInterval(mk);
+      };
+    }
+  }, [playing]);
 
+  useEffect(() => {
+    if (timer <= 0) {
+      if (type === "Session" && id === 1) {
+        setType("Break");
+        setTimer(breakl * 60);
+        setId(2);
+      } else if (type === "Break") {
+        setType("Session");
+        setTimer(session * 60);
+        setId(3);
+      } else {
+        setPlaying(false);
+        setId(4);
+        lol.play();
+      }
+    }
+    // return () => {
+    //   cleanup
+    // }
+  }, [timer]);
+
+  let props = { breakl, setSession, setBreakl, session, playing, setTimer };
   return (
     <div className="bg-indigo-400 h-screen">
-      <div className="flex flex-col mx-auto w-max px-8  text-white font-bold text-4xl h-3/4 justify-around">
+      <div className="flex flex-col mx-auto w-max px-8  text-white font-bold text-4xl h-screen justify-around">
         <h1 className="text-center text-6xl text-white font-bold">Timer</h1>
         <Settings {...props} />
-        <Timer timer={h + ":" + m} />
+        <Timer timer={h + ":" + m} type={type} />
         <Controls reset={reset} playpause={playpause} playing={playing} />
-        <p>{date}</p>
+        {/* <p>{date}</p> */}
+        {/* <audio controls>
+          <source src={samsung} type="audio/mpeg"></source>
+        </audio> */}
       </div>
     </div>
   );
